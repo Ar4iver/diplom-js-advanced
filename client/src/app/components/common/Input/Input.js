@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './style/input.module.css'
+import styles from './style/input.module.scss'
 
 const CustomInput = ({ options, placeholder }) => {
   return (

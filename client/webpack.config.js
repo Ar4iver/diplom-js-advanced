@@ -5,7 +5,6 @@ const path = require('path')
 
 module.exports = (env) => {
   const mode = env.mode || 'development'
-  const PORT = env.port || 3000
   const isDev = mode === 'development'
 
   console.log(mode)
@@ -22,10 +21,11 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'public', 'index.html'),
       }),
+      new webpack.ProgressPlugin(),
       new MiniCssExtractPlugin({
         filename: 'css/[name].[contenthash:8].css',
+        chunkFilename: 'css/[name].[contenthash:8].css',
       }),
-      new webpack.ProgressPlugin(),
     ],
 
     module: {
@@ -41,10 +41,21 @@ module.exports = (env) => {
           },
         },
         {
-          test: /\.css$/i,
+          test: /\.s[ac]ss$/i,
           use: [
             isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  auto: (resPath) => Boolean(resPath.includes('.module.')),
+                  localIdentName: isDev
+                    ? '[path][name]__[local]--[hash:base64:5]'
+                    : '[hash:base64:8]',
+                },
+              },
+            },
+            'sass-loader',
           ],
         },
         {

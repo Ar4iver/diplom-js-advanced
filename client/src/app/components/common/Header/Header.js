@@ -1,7 +1,7 @@
 import React from 'react'
 import Container from '../Container/Container'
 import Logo from '../../../assets/svg/logo.svg'
-import styles from '../Header/style/header.module.css'
+import styles from '../Header/style/header.module.scss'
 
 const Header = () => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '../../common/Button/Button'
 import CustomInput from '../../common/Input/Input.js'
-import styles from '../forms/style/loginForm.module.css'
+import styles from '../forms/style/loginForm.module.scss'
 
 const LoginForm = () => {
   return (
