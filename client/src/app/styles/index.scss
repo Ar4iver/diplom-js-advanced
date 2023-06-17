@@ -1,8 +1,9 @@
-@import 'reset';
-@import 'variables/global';
-@import 'themes/normal';
-@import 'themes/dark';
+@import './reset.scss';
+@import './variables/global.scss';
+@import './themes/normal.scss';
+@import './themes/dark.scss';
 
 .app {
-  font: var(--font-m);
+  font: var(--font-md);
+  color: var(--primary-color);
 }
