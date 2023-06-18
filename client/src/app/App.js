@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
-import AppRouter from './router/AppRouter.js'
+import React from 'react'
 import './styles/index.scss'
-import { ThemeContext } from './theme/ThemeContext.js'
+import { useTheme } from './providers/ThemeProviders/index.js'
+import { AppRouter } from './providers/router'
 
 const App = () => {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useTheme()
   return (
     <div className={`app ${theme}`}>
       <AppRouter />

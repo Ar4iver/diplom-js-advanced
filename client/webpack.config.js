@@ -6,6 +6,7 @@ const path = require('path')
 module.exports = (env) => {
   const mode = env.mode || 'development'
   const isDev = mode === 'development'
+  const src = path.resolve(__dirname, 'src')
 
   console.log(mode)
 
@@ -66,6 +67,10 @@ module.exports = (env) => {
     },
     resolve: {
       extensions: ['.jsx', '.js'],
+      preferAbsolute: true,
+      modules: [src, 'node_modules'],
+      mainFiles: ['index'],
+      alias: {},
     },
     devtool: isDev ? 'inline-source-map' : undefined,
     devServer: isDev
