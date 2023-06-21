@@ -7,6 +7,7 @@ module.exports = (env) => {
   const mode = env.mode || 'development'
   const isDev = mode === 'development'
   const src = path.resolve(__dirname, 'src')
+  const check = console.log('Проверка')
 
   console.log(mode)
 

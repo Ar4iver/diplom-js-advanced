@@ -1,22 +1,25 @@
 import React from 'react'
-import Button from 'shared/ui/Button/Button'
-import styles from './UserAccounts.module.scss'
+import styles from './UserAccountsItem.module.scss'
+import AppLink from '../../../../../shared/ui/AppLink/AppLink'
 
-export const UserAccountsItem = (props) => {
-  const { account, key } = props
-
+export const UserAccountsItem = ({ account }) => {
   return (
-    <div key={key} className={styles.account}>
-      <div>
-        <div>{account.number}</div>
+    <div className={styles.accountItem}>
+      <div className={styles.headerCard}>
+        <div>{account.accountNumber}</div>
         <div>{account.balance}</div>
       </div>
-      <div>
+      <div className={styles.footerItem}>
         <div>
           <h3>Последняя транзакция</h3>
-          <span>21 августа 2021</span>
+          <span>{account.lastTransaction}</span>
         </div>
-        <Button>Открыть</Button>
+        <AppLink
+          to={`/accounts/${account.accountNumber}`}
+          className={styles.link}
+        >
+          Открыть
+        </AppLink>
       </div>
     </div>
   )

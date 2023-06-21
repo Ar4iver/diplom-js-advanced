@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './AccountListPage.module.scss'
 import Select from 'shared/ui/Select/Select'
 import Button from 'shared/ui/Button/Button'
+import { UserAccounts } from 'features/accounts/components/UserAccounts/ui/UserAccounts'
 
 const AccountListPage = () => {
   const options = [
@@ -20,6 +21,9 @@ const AccountListPage = () => {
         <div className={styles.rightContent}>
           <Button>Создать новый счёт</Button>
         </div>
+      </div>
+      <div className={styles.accountsList}>
+        <UserAccounts />
       </div>
     </div>
   )
