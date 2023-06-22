@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 const path = require('path')
@@ -7,7 +8,6 @@ module.exports = (env) => {
   const mode = env.mode || 'development'
   const isDev = mode === 'development'
   const src = path.resolve(__dirname, 'src')
-  const check = console.log('Проверка')
 
   console.log(mode)
 
@@ -18,7 +18,17 @@ module.exports = (env) => {
       filename: '[name].[contenthash].js',
       path: path.resolve(__dirname, 'dist'),
       clean: true,
+      publicPath: '/',
     },
+    devtool: isDev ? 'inline-source-map' : undefined,
+    devServer: isDev
+      ? {
+          open: true,
+          historyApiFallback: true,
+          hot: true,
+        }
+      : undefined,
+
     plugins: [
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'public', 'index.html'),
@@ -28,6 +38,8 @@ module.exports = (env) => {
         filename: 'css/[name].[contenthash:8].css',
         chunkFilename: 'css/[name].[contenthash:8].css',
       }),
+      new ReactRefreshWebpackPlugin(),
+      new webpack.HotModuleReplacementPlugin(),
     ],
 
     module: {
@@ -73,12 +85,5 @@ module.exports = (env) => {
       mainFiles: ['index'],
       alias: {},
     },
-    devtool: isDev ? 'inline-source-map' : undefined,
-    devServer: isDev
-      ? {
-          open: true,
-          historyApiFallback: true,
-        }
-      : undefined,
   }
 }

@@ -7,7 +7,7 @@ const Select = (props) => {
   const { selected, handleSelect } = useSelect('Сортировка')
 
   return (
-    <select value={selected} onChange={handleSelect}>
+    <select className={styles.select} value={selected} onChange={handleSelect}>
       <option disabled>Сортировка</option>
       {options.map((option, index) => (
         <option key={index} value={option.value}>
