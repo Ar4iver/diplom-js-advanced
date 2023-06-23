@@ -4,12 +4,12 @@ import { useTheme } from './providers/ThemeProviders/index.js'
 import { AppRouter } from './providers/router'
 
 const App = () => {
-  const { theme } = useTheme()
-  return (
-    <div className={`app ${theme}`}>
-      <AppRouter />
-    </div>
-  )
+    const { theme } = useTheme()
+    return (
+        <div className={`app ${theme}`}>
+            <AppRouter />
+        </div>
+    )
 }
 
 export default App

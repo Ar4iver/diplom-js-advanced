@@ -3,11 +3,11 @@ import styles from './signup.module.scss'
 import { LoginForm } from '../../../widgets/LoginForm'
 
 const LoginPage = () => {
-  return (
-    <div className={styles.container}>
-      <LoginForm />
-    </div>
-  )
+    return (
+        <div className={styles.container}>
+            <LoginForm />
+        </div>
+    )
 }
 
 export default LoginPage

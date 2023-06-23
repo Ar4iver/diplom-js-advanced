@@ -4,14 +4,14 @@ import { Header } from 'widgets/Header'
 import MyContainer from 'shared/ui/Container/Container'
 
 const Layout = () => {
-  return (
-    <>
-      <Header />
-      <MyContainer>
-        <Outlet />
-      </MyContainer>
-    </>
-  )
+    return (
+        <>
+            <Header />
+            <MyContainer>
+                <Outlet />
+            </MyContainer>
+        </>
+    )
 }
 
 export default Layout
