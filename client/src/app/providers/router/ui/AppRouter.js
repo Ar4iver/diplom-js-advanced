@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { Layout } from 'app/layout'
+import { Layout } from 'shared/layout'
 import { AccountListPage } from 'pages/AccountListPage'
 import { LoginPage } from 'pages/LoginPage'
 import { CurrencyExchangePage } from 'pages/CurrencyExchangePage'
