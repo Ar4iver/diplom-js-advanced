@@ -1,7 +1,9 @@
 import React from 'react'
 import styles from './Input.module.scss'
 
-const CustomInput = ({ options, placeholder, value, handleInputChange }) => {
+const CustomInput = (props) => {
+    const { options, placeholder, value, handleInputChange } = props
+
     return (
         <div>
             {options
@@ -15,7 +17,7 @@ const CustomInput = ({ options, placeholder, value, handleInputChange }) => {
                     </select>
                 )
                 : (
-                    <input className={styles.input} type="text" placeholder={placeholder} />
+                    <input className={styles.input} onChange={handleInputChange} type="text" placeholder={placeholder}/>
                 )}
         </div>
     )

@@ -6,25 +6,13 @@ export const AccountsProvider = ({ children }) => {
     const [accounts, setAccounts] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:3000/login', {
-            method: 'POST',
+        const response = fetch('http://localhost:3000/accounts', {
             headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ login: 'developer', password: 'skillbox' })
+                Authorization: `Basic ${localStorage.getItem('token')}`
+            }
         })
-            .then(response => response.json())
-            .then(data => {
-                const token = data.token
-                return fetch('http://localhost:3000/accounts', {
-                    headers: {
-                        Authorization: `Basic ${token}`
-                    }
-                })
-            })
-            .then(response => response.json())
-            .then(data => setAccounts(data))
-            .catch(error => console.error(error))
+        const data = response.json()
+        setAccounts(data)
     }, [])
 
     return (
