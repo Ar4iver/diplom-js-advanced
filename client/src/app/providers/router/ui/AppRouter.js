@@ -12,7 +12,7 @@ const AppRouter = () => {
         <Suspense fallback={<div>Loading...</div>}>
             <Routes>
                 <Route path="/" element={<Layout />}>
-                    <Route index element={<LoginPage />} />
+                    <Route path='/auth' element={<LoginPage />} />
                     <Route path="/accounts" element={<AccountListPage />} />
                     <Route path="/accounts/:accountNumber" element={<AccountDetailPage />} />
                     <Route path="/currency-exchange" element={<CurrencyExchangePage />} />

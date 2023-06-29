@@ -33,7 +33,7 @@ const Navlist = () => {
                     {link.name}
                 </NavLink>
             ))}
-            <Link className={styles.logoutBtn} to={'/'}>
+            <Link className={styles.logoutBtn} to={'/auth'}>
                 Выйти
             </Link>
         </div>
