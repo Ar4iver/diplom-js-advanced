@@ -4,7 +4,7 @@ import Button from 'shared/ui/Button/Button'
 import { UserAccounts } from 'features/accounts/components/UserAccounts/ui/UserAccounts'
 import styles from './AccountListPage.module.scss'
 
-function AccountListPage () {
+const AccountListPage = () => {
     const options = [
         { value: 'number', label: 'По номеру' },
         { value: 'balance', label: 'По балансу' },

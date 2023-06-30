@@ -19,7 +19,7 @@ export const UserAccountsItem = ({ account }) => {
                         Последняя транзакция:
                         <br />
                         <span className={styles.lastTransactionInfo}>
-                            {formatDate(account.transactions[0].date)}
+                            {formatDate(account.transactions.at(-1).date)}
                         </span>
                     </h3>
                 </div>

@@ -6,13 +6,16 @@ export const AccountsProvider = ({ children }) => {
     const [accounts, setAccounts] = useState([])
 
     useEffect(() => {
-        const response = fetch('http://localhost:3000/accounts', {
-            headers: {
-                Authorization: `Basic ${localStorage.getItem('token')}`
-            }
-        })
-        const data = response.json()
-        setAccounts(data)
+        const fetchData = async () => {
+            const response = await fetch('http://localhost:3000/accounts', {
+                headers: {
+                    Authorization: `Basic ${localStorage.getItem('token')}`
+                }
+            })
+            const data = await response.json()
+            setAccounts(data)
+        }
+        fetchData()
     }, [])
 
     return (

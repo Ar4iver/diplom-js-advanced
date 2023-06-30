@@ -4,11 +4,11 @@ import styles from './UserAccounts.module.scss'
 import { AuthContext } from '../../../../../entities/auth'
 
 export const UserAccounts = () => {
-    const token = useContext(AuthContext)
     const [accounts, setAccounts] = useState([])
 
+    const token = useContext(AuthContext)
+
     console.log(token)
-    console.log(accounts)
 
     useEffect(() => {
         const fetchAccounts = async () => {
@@ -21,13 +21,15 @@ export const UserAccounts = () => {
             setAccounts(data.payload)
         }
         fetchAccounts()
-    }, [token])
+    }, [])
 
-    return (
-        <div className={styles.accountsList}>
-            {accounts.map((account, index) => (
-                <UserAccountsItem key={index} account={account} />
-            ))}
-        </div>
+    console.log(accounts)
+
+    return (accounts &&
+    <div className={styles.accountsList}>
+        {accounts.map((account, index) => (
+            <UserAccountsItem key={index} account={account} />
+        ))}
+    </div>
     )
 }
