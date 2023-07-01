@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Select from 'shared/ui/Select/Select'
 import Button from 'shared/ui/Button/Button'
 import { UserAccounts } from 'features/accounts/components/UserAccounts/ui/UserAccounts'
+import { createAccount } from 'features/createAccount'
+import { AccountsContext } from 'entities/accounts'
 import styles from './AccountListPage.module.scss'
 
 const AccountListPage = () => {
@@ -11,6 +13,16 @@ const AccountListPage = () => {
         { value: 'transaction', label: 'По последней транзакции' }
     ]
 
+    const { fetchAccounts } = useContext(AccountsContext)
+
+    const handleCreateAccount = async () => {
+        try {
+            await createAccount()
+            fetchAccounts()
+        } catch (error) {
+            console.error(error)
+        }
+    }
     return (
         <div className={styles.container}>
             <div className={styles.headerContent}>
@@ -19,7 +31,7 @@ const AccountListPage = () => {
                     <Select options={options} />
                 </div>
                 <div className={styles.rightContent}>
-                    <Button>Создать новый счёт</Button>
+                    <Button onClick={handleCreateAccount}>Создать новый счёт</Button>
                 </div>
             </div>
             <div className={styles.accountsList}>

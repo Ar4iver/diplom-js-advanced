@@ -19,12 +19,12 @@ export const UserAccountsItem = ({ account }) => {
                         Последняя транзакция:
                         <br />
                         <span className={styles.lastTransactionInfo}>
-                            {formatDate(account.transactions.at(-1).date)}
+                            {account.transactions.length ? formatDate(account.transactions.at(-1).date) : <>Транзакций не найдено</> }
                         </span>
                     </h3>
                 </div>
                 <AppLink
-                    to={`/accounts/${account.accountNumber}`}
+                    to={`/accounts/${account.account}`}
                     className={styles.link}
                 >
                     Открыть

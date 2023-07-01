@@ -1,17 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './styles/index.scss'
 import { useTheme } from './providers/ThemeProviders/index.js'
 import { AppRouter } from './providers/router'
-import { AuthProvider } from '../entities/auth/lib/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 const App = () => {
     const { theme } = useTheme()
+    const navigate = useNavigate()
+    const token = localStorage.getItem('token')
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/auth')
+        }
+    }, [token])
 
     return (
         <div className={`app ${theme}`}>
-            <AuthProvider>
-                <AppRouter />
-            </AuthProvider>
+            <AppRouter />
         </div>
     )
 }

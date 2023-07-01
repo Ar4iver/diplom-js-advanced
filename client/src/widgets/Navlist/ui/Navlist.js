@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import styles from './Navlist.module.scss'
+import { AuthContext } from 'entities/auth/lib/AuthContext'
 
 const Navlist = () => {
     const links = [
@@ -19,6 +20,11 @@ const Navlist = () => {
     ]
 
     const location = useLocation()
+    const { logout } = useContext(AuthContext)
+
+    const handleLogout = () => {
+        logout()
+    }
 
     return (
         <div className={styles.wrapperLink}>
@@ -33,7 +39,7 @@ const Navlist = () => {
                     {link.name}
                 </NavLink>
             ))}
-            <Link className={styles.logoutBtn} to={'/auth'}>
+            <Link className={styles.logoutBtn} onClick={handleLogout} to={'/auth'}>
                 Выйти
             </Link>
         </div>

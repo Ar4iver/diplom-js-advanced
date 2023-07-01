@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styles from './LoginForm.module.scss'
-import Button from '../../../../shared/ui/Button/Button'
-import CustomInput from '../../../../shared/ui/Input/Input'
+import Button from 'shared/ui/Button/Button'
+import CustomInput from 'shared/ui/Input/Input'
 import { useNavigate } from 'react-router-dom'
+import { AccountsContext } from 'entities/accounts'
+import { AuthContext } from 'entities/auth'
 
 const LoginForm = () => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+    const { fetchAccounts } = useContext(AccountsContext)
+    const { login: userAuth } = useContext(AuthContext)
     const navigate = useNavigate()
 
     const auth = async () => {
@@ -21,7 +25,9 @@ const LoginForm = () => {
 
             const data = await response.json()
 
-            localStorage.setItem('token', data.payload.token)
+            userAuth(data.payload.token)
+
+            await fetchAccounts()
 
             navigate('/accounts')
         } catch (error) {

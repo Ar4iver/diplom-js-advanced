@@ -5,21 +5,23 @@ export const AccountsContext = createContext()
 export const AccountsProvider = ({ children }) => {
     const [accounts, setAccounts] = useState([])
 
+    const fetchAccounts = async () => {
+        const response = await fetch('http://localhost:3000/accounts', {
+            headers: {
+                Authorization: `Basic ${localStorage.getItem('token')}`
+            }
+        })
+        const data = await response.json()
+
+        setAccounts(data.payload)
+    }
+
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch('http://localhost:3000/accounts', {
-                headers: {
-                    Authorization: `Basic ${localStorage.getItem('token')}`
-                }
-            })
-            const data = await response.json()
-            setAccounts(data)
-        }
-        fetchData()
+        fetchAccounts()
     }, [])
 
     return (
-        <AccountsContext.Provider value={accounts}>
+        <AccountsContext.Provider value={{ accounts, fetchAccounts }}>
             {children}
         </AccountsContext.Provider>
     )
