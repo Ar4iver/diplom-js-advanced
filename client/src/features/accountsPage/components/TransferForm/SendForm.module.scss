@@ -1,0 +1,16 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    background-color: #f3f4f6;
+    border-radius: 50px;
+    padding: 25px 50px;
+}
+
+.headLoginForm {
+    margin-bottom: 25px;
+}
+
+.wrapperButton {
+    display: flex;
+    justify-content: center;
+}

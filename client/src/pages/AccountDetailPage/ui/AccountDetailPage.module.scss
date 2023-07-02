@@ -3,5 +3,69 @@
 }
 
 .headerDetailPage {
-    margin-bottom: 30px;
+    color: var(--secondary-5-color);
+    font-size: 34px;
+    font-weight: 700;
+}
+
+.number {
+    color: var(--secondary-5-color);
+    font-size: 34px;
+    font-weight: 400;
+}
+
+.top {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.topContentLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 33px;
+    justify-content: space-between;
+}
+
+.topContentRight {
+    display: flex;
+    flex-direction: column;
+    gap: 33px;
+    justify-content: space-between;
+}
+
+.link {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.arrowSvg {
+    display: flex;
+}
+
+.accountBalance {
+    color: var(--secondary-5-color);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.countBalance {
+    color: var(--secondary-5-color);
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.middle {
+    display: flex;
+    gap: 50px;
+}
+
+.transferForm {
+    width: 50%;
+}
+
+.balanceChart {
+    width: 50%;
 }
