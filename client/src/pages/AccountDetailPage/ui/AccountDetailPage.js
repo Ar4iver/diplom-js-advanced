@@ -4,7 +4,8 @@ import styles from './AccountDetailPage.module.scss'
 import AppLink from 'shared/ui/AppLink/AppLink'
 import { fetchAccountDetails } from 'features/accounts/api/fetchAccountDetails'
 import { formatCurrency } from 'shared/utils/formatCurrency'
-import TransferForm from 'features/accountsPage/components/TransferForm/TransferForm'
+import { TransferForm } from 'features/accountsPage/components/TransferForm/TransferForm'
+import { BalanceChart } from 'features/accountsPage/components/BalanceChart/BalanceChart'
 import Arrow from 'shared/assets/svg/arrow.svg'
 
 export const AccountDetailPage = () => {
@@ -39,7 +40,7 @@ export const AccountDetailPage = () => {
             </div>
             <div className={styles.middle}>
                 <div className={styles.transferForm}><TransferForm /></div>
-                <div className={styles.balanceChart}></div>
+                <div className={styles.balanceChart}><BalanceChart /></div>
             </div>
         </div>
     )

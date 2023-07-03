@@ -1,12 +1,9 @@
 import React from 'react'
 import styles from './BalanceChart.module.scss'
+import BarChart from 'shared/ui/charts/BarChart/BarChart'
 
-const BalanceChart = () => {
+export const BalanceChart = () => {
     return (
-        <div>
-
-        </div>
+        <BarChart />
     )
 }
-
-export default BalanceChart

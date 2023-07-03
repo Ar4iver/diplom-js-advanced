@@ -3,7 +3,7 @@ import styles from './SendForm.module.scss'
 import Button from 'shared/ui/Button/Button'
 import CustomInput from 'shared/ui/Input/Input'
 
-const TransferForm = () => {
+export const TransferForm = () => {
     return (
         <>
             <form
@@ -25,5 +25,3 @@ const TransferForm = () => {
         </>
     )
 }
-
-export default TransferForm
