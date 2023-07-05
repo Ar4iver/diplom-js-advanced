@@ -2,10 +2,12 @@ import React from 'react'
 import styles from './Button.module.scss'
 
 const Button = (props) => {
-    const { children, ...otherProps } = props
+    const { children, className, ...otherProps } = props
+
+    const combinedClassName = `${styles.button} ${className}`
 
     return (
-        <button className={styles.button} {...otherProps}>
+        <button className={combinedClassName} {...otherProps}>
             {children}
         </button>
     )

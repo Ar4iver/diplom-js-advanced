@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './SendForm.module.scss'
 import Button from 'shared/ui/Button/Button'
 import CustomInput from 'shared/ui/Input/Input'
+import Mail from '../../../../shared/assets/svg/mail.svg'
 
 export const TransferForm = () => {
     return (
@@ -18,7 +19,7 @@ export const TransferForm = () => {
                         placeholder="Сумма перевода"
                     />
                     <div className={styles.wrapperButton}>
-                        <Button type="submit">Отправить</Button>
+                        <Button className={styles.buttonTranslation} type="submit"><span className={styles.svgMail}><img src={Mail} alt="Mail" /></span>Отправить</Button>
                     </div>
                 </div>
             </form>

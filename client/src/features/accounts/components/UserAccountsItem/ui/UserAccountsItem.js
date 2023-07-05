@@ -1,12 +1,10 @@
 import React from 'react'
 import AppLink from 'shared/ui/AppLink/AppLink'
 import styles from './UserAccountsItem.module.scss'
-import { formatDate } from '../../../../../shared/utils/formatDate'
-import { formatCurrency } from '../../../../../shared/utils/formatCurrency'
+import { formatDate } from 'shared/utils/formatDate'
+import { formatCurrency } from 'shared/utils/formatCurrency'
 
 export const UserAccountsItem = ({ account }) => {
-    console.log(account)
-
     return (
         <div className={styles.accountItem}>
             <div className={styles.headerCard}>

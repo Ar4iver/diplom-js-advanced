@@ -9,6 +9,7 @@ import {
     Legend
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
+import { formatCurrency } from '../../../utils/formatCurrency'
 
 ChartJS.register(
     CategoryScale,
@@ -19,12 +20,24 @@ ChartJS.register(
     Legend
 )
 
+ChartJS.register({
+    id: 'chartAreaBorder',
+    afterDraw: (chart, args, options) => {
+        const { ctx, chartArea: { left, top, width, height } } = chart
+        ctx.save()
+        ctx.strokeStyle = options.borderColor
+        ctx.lineWidth = options.borderWidth
+        ctx.strokeRect(left, top, width, height)
+        ctx.restore()
+    }
+})
+
 const BarChart = ({ accountData }) => {
     const now = new Date()
 
     const labels = Array.from({ length: 6 }, (_, i) => {
         const month = new Date(now.getFullYear(), now.getMonth() - (5 - i), 1)
-        return month.toLocaleString('ru', { month: 'long' })
+        return (month.toLocaleString('ru', { month: 'long' })).slice(0, 3)
     })
 
     const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 5, 1)
@@ -50,6 +63,7 @@ const BarChart = ({ accountData }) => {
                 label: 'Изменение баланса',
                 data: balanceChangesByMonth,
                 backgroundColor: '#116acc'
+
             }
         ]
     }
@@ -62,18 +76,50 @@ const BarChart = ({ accountData }) => {
         plugins: {
             title: {
                 display: true,
-                text: 'Динамика баланса'
+                text: 'Динамика баланса',
+                font: {
+                    size: 20,
+                    weight: 700
+                },
+                color: '#000',
+                align: 'start'
+            },
+            legend: {
+                display: false
+            },
+            chartAreaBorder: {
+                borderColor: '#000',
+                borderWidth: 2
             }
         },
         scales: {
+            x: {
+                grid: {
+                    display: false,
+                    drawBorder: false
+                },
+                ticks: {
+                    color: '#000',
+                    font: {
+                        size: 20,
+                        weight: 700
+                    }
+                }
+            },
             y: {
                 min: minBalance,
                 max: maxBalance,
+                position: 'right',
                 ticks: {
+                    color: '#000',
+                    font: {
+                        size: 20,
+                        weight: 500
+                    },
                     stepSize: maxBalance - minBalance,
                     callback: function (value) {
                         if (value === minBalance || value === maxBalance) {
-                            return Math.trunc(value)
+                            return formatCurrency(Math.trunc(value))
                         }
                     }
                 }
