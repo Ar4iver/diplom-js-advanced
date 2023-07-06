@@ -20,8 +20,6 @@ export const AccountDetailPage = () => {
         getAccountDetails()
     }, [accountNumber])
 
-    // console.log(accountDetails)
-
     if (!accountDetails) {
         return <div>Loading...</div>
     }
@@ -39,7 +37,7 @@ export const AccountDetailPage = () => {
                 </div>
             </div>
             <div className={styles.middle}>
-                <div className={styles.transferForm}><TransferForm /></div>
+                <div className={styles.transferForm}><TransferForm accountNumber={accountNumber} /></div>
                 <div className={styles.balanceChart}><BalanceChart accountData={accountDetails} /></div>
             </div>
         </div>

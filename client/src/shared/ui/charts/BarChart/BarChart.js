@@ -1,44 +1,19 @@
 import React from 'react'
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend
-} from 'chart.js'
+import { Chart, registerables } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 import { formatCurrency } from '../../../utils/formatCurrency'
 
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend
-)
-
-ChartJS.register({
-    id: 'chartAreaBorder',
-    afterDraw: (chart, args, options) => {
-        const { ctx, chartArea: { left, top, width, height } } = chart
-        ctx.save()
-        ctx.strokeStyle = options.borderColor
-        ctx.lineWidth = options.borderWidth
-        ctx.strokeRect(left, top, width, height)
-        ctx.restore()
-    }
-})
+Chart.register(...registerables)
 
 const BarChart = ({ accountData }) => {
     const now = new Date()
 
-    const labels = Array.from({ length: 6 }, (_, i) => {
-        const month = new Date(now.getFullYear(), now.getMonth() - (5 - i), 1)
-        return (month.toLocaleString('ru', { month: 'long' })).slice(0, 3)
-    })
+    const labels = Array(6)
+        .fill()
+        .map((_, i) => {
+            const month = new Date(now.getFullYear(), now.getMonth() - (5 - i), 1)
+            return month.toLocaleString('ru', { month: 'long' }).slice(0, 3)
+        })
 
     const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 5, 1)
 
@@ -47,26 +22,21 @@ const BarChart = ({ accountData }) => {
         return transactionDate >= sixMonthsAgo
     })
 
-    const balanceChangesByMonth = Array(6).fill(0)
-    recentTransactions.forEach(transaction => {
-        const transactionDate = new Date(transaction.date)
-        const monthIndex = transactionDate.getMonth() - sixMonthsAgo.getMonth()
-        if (monthIndex >= 0) {
-            balanceChangesByMonth[monthIndex] += transaction.amount
-        }
-    })
+    const calculateBalanceChangesByMonth = (recentTransactions, sixMonthsAgo) => {
+        const balanceChangesByMonth = Array(6).fill(0)
 
-    const data = {
-        labels,
-        datasets: [
-            {
-                label: 'Изменение баланса',
-                data: balanceChangesByMonth,
-                backgroundColor: '#116acc'
-
+        recentTransactions.forEach(transaction => {
+            const transactionDate = new Date(transaction.date)
+            const monthIndex = transactionDate.getMonth() - sixMonthsAgo.getMonth()
+            if (monthIndex >= 0) {
+                balanceChangesByMonth[monthIndex] += transaction.amount
             }
-        ]
+        })
+
+        return balanceChangesByMonth
     }
+
+    const balanceChangesByMonth = calculateBalanceChangesByMonth(recentTransactions, sixMonthsAgo)
 
     const minBalance = Math.min(...balanceChangesByMonth)
     const maxBalance = Math.max(...balanceChangesByMonth)
@@ -127,9 +97,18 @@ const BarChart = ({ accountData }) => {
         }
     }
 
-    return (
-        <Bar options={options} data={data} />
-    )
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: 'Изменение баланса',
+                data: balanceChangesByMonth,
+                backgroundColor: '#116acc'
+            }
+        ]
+    }
+
+    return <Bar options={options} data={data} />
 }
 
 export default BarChart
