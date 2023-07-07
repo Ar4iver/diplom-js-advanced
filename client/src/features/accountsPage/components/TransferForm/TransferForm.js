@@ -37,7 +37,7 @@ export const TransferForm = (props) => {
                         handleInputChange={(e) => setSum(e.target.value)}
                     />
                     <div className={styles.wrapperButton}>
-                        <Button className={styles.buttonTranslation} onClick={sendTransfer} type="submit"><span className={styles.svgMail}><img src={Mail} alt="Mail" /></span>Отправить</Button>
+                        <Button className={styles.buttonTranslation} type="submit"><span className={styles.svgMail}><img src={Mail} alt="Mail" /></span>Отправить</Button>
                     </div>
                 </div>
             </form>

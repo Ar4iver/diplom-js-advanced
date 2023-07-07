@@ -7,6 +7,7 @@ import { formatCurrency } from 'shared/utils/formatCurrency'
 import { TransferForm } from 'features/accountsPage/components/TransferForm/TransferForm'
 import { BalanceChart } from 'features/accountsPage/components/BalanceChart/BalanceChart'
 import Arrow from 'shared/assets/svg/arrow.svg'
+import { TransactionHistory } from 'features/accountsPage/components/TransactionHistory/TransactionHistory'
 
 export const AccountDetailPage = () => {
     const { accountNumber } = useParams()
@@ -40,6 +41,7 @@ export const AccountDetailPage = () => {
                 <div className={styles.transferForm}><TransferForm accountNumber={accountNumber} /></div>
                 <div className={styles.balanceChart}><BalanceChart accountData={accountDetails} /></div>
             </div>
+            <div className={styles.historyTransaction}><TransactionHistory transaction={accountDetails.transactions} /></div>
         </div>
     )
 }

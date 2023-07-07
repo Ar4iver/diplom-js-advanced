@@ -5,6 +5,18 @@ import { formatCurrency } from '../../../utils/formatCurrency'
 
 Chart.register(...registerables)
 
+Chart.register({
+    id: 'chartAreaBorder',
+    afterDraw: (chart, args, options) => {
+        const { ctx, chartArea: { left, top, width, height } } = chart
+        ctx.save()
+        ctx.strokeStyle = options.borderColor
+        ctx.lineWidth = options.borderWidth
+        ctx.strokeRect(left, top, width, height)
+        ctx.restore()
+    }
+})
+
 const BarChart = ({ accountData }) => {
     const now = new Date()
 
