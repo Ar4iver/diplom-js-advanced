@@ -41,7 +41,7 @@ export const AccountDetailPage = () => {
                 <div className={styles.transferForm}><TransferForm accountNumber={accountNumber} /></div>
                 <div className={styles.balanceChart}><BalanceChart accountData={accountDetails} /></div>
             </div>
-            <div className={styles.historyTransaction}><TransactionHistory transaction={accountDetails.transactions} /></div>
+            <div className={styles.historyTransaction}><TransactionHistory accountNumber={accountNumber} transactions={accountDetails.transactions} /></div>
         </div>
     )
 }

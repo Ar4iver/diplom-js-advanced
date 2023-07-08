@@ -1,0 +1,49 @@
+.headNameTable th {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    padding: 20px 49px;
+}
+
+
+.blockName {
+    margin-bottom: 25px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--secondary-5-color);
+}
+
+.tbody {
+    width: 100%;
+}
+
+.table {
+    width: 100%;
+    border-spacing: 0; 
+}
+
+.container {
+    border-radius: 56px;
+    padding: 25px 50px;
+    background-color: var(--secondary-6-color);
+}
+
+.firstColomn {
+    border-radius: 15px 0 0 15px;
+}
+
+.endColomn {
+    border-radius: 0 15px 15px 0;
+}
+
+.transaction {
+    padding: 21px 49px;
+}
+
+.dataColumn{
+    color: var(--secondary-7-color);
+    font-size: 16px;
+    font-weight: 400;
+    padding: 21px 49px;
+    border-bottom: 1px solid rgba(0, 82, 255, 0.10);
+    text-align: center;
+}

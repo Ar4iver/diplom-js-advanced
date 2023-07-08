@@ -1,21 +1,25 @@
 import React from 'react'
-import { useSelect } from 'shared/hooks'
-import styles from './Select.module.scss'
+import Select from 'react-select'
+import { customStyles } from './style/customStyles'
+import { CustomOption } from './config/CustomOption'
+import { DropdownIndicator } from './config/DropdownIndicator'
 
-const Select = (props) => {
-    const { options } = props
-    const { selected, handleSelect } = useSelect('Сортировка')
+const MySelect = ({ options, value, onChange }) => {
+    const selectedOption = options.find(option => option.value === value)
+
+    const handleChange = option => {
+        onChange(option.value)
+    }
 
     return (
-        <select className={styles.select} value={selected} onChange={handleSelect}>
-            <option disabled>Сортировка</option>
-            {options.map((option, index) => (
-                <option key={index} value={option.value}>
-                    {option.label}
-                </option>
-            ))}
-        </select>
+        <Select
+            options={options}
+            value={selectedOption}
+            onChange={handleChange}
+            components={{ Option: CustomOption, DropdownIndicator }}
+            styles={customStyles}
+        />
     )
 }
 
-export default Select
+export default MySelect

@@ -4,6 +4,7 @@ export const AccountsContext = createContext()
 
 export const AccountsProvider = ({ children }) => {
     const [accounts, setAccounts] = useState([])
+    const [sortMethod, setSortMethod] = useState('balance')
 
     const fetchAccounts = async () => {
         const response = await fetch('http://localhost:3000/accounts', {
@@ -21,7 +22,7 @@ export const AccountsProvider = ({ children }) => {
     }, [])
 
     return (
-        <AccountsContext.Provider value={{ accounts, fetchAccounts }}>
+        <AccountsContext.Provider value={{ accounts, fetchAccounts, sortMethod, setSortMethod }}>
             {children}
         </AccountsContext.Provider>
     )
