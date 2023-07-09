@@ -17,48 +17,60 @@ Chart.register({
     }
 })
 
-const BarChart = ({ accountData }) => {
+const BarChart = ({ accountData, period, showTransactionsRatio, title }) => {
     const now = new Date()
+    console.log(accountData)
+    const accountNumber = accountData?.account
 
-    const labels = Array(6)
+    const labels = Array(period)
         .fill()
         .map((_, i) => {
-            const month = new Date(now.getFullYear(), now.getMonth() - (5 - i), 1)
+            const month = new Date(now.getFullYear(), now.getMonth() - (period - 1 - i), 1)
             return month.toLocaleString('ru', { month: 'long' }).slice(0, 3)
         })
 
-    const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 5, 1)
+    const periodAgo = new Date(now.getFullYear(), now.getMonth() - (period - 1), 1)
 
     const recentTransactions = accountData.transactions.filter(transaction => {
         const transactionDate = new Date(transaction.date)
-        return transactionDate >= sixMonthsAgo
+        return transactionDate >= periodAgo
     })
 
-    const calculateBalanceChangesByMonth = (recentTransactions, sixMonthsAgo) => {
-        const balanceChangesByMonth = Array(6).fill(0)
+    const calculateBalanceChangesByMonth = (recentTransactions, periodAgo, showTransactionsRatio, accountNumber) => {
+        const balanceChangesByMonth = Array(period).fill(0)
+        const incomingByMonth = Array(period).fill(0)
+        const outgoingByMonth = Array(period).fill(0)
 
         recentTransactions.forEach(transaction => {
             const transactionDate = new Date(transaction.date)
-            const monthIndex = transactionDate.getMonth() - sixMonthsAgo.getMonth()
+            const monthIndex = (transactionDate.getFullYear() - periodAgo.getFullYear()) * 12 + transactionDate.getMonth() - periodAgo.getMonth()
             if (monthIndex >= 0) {
+                if (showTransactionsRatio) {
+                    if (transaction.from === accountNumber) {
+                        outgoingByMonth[monthIndex] += transaction.amount
+                    } else {
+                        incomingByMonth[monthIndex] += transaction.amount
+                    }
+                }
                 balanceChangesByMonth[monthIndex] += transaction.amount
             }
         })
 
-        return balanceChangesByMonth
+        return { balanceChangesByMonth, incomingByMonth, outgoingByMonth }
     }
 
-    const balanceChangesByMonth = calculateBalanceChangesByMonth(recentTransactions, sixMonthsAgo)
+    const { balanceChangesByMonth, incomingByMonth, outgoingByMonth } = calculateBalanceChangesByMonth(recentTransactions, periodAgo, showTransactionsRatio, accountNumber)
 
     const minBalance = Math.min(...balanceChangesByMonth)
     const maxBalance = Math.max(...balanceChangesByMonth)
 
     const options = {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
             title: {
                 display: true,
-                text: 'Динамика баланса',
+                text: title,
                 font: {
                     size: 20,
                     weight: 700
@@ -89,6 +101,7 @@ const BarChart = ({ accountData }) => {
                 }
             },
             y: {
+                stacked: true,
                 min: minBalance,
                 max: maxBalance,
                 position: 'right',
@@ -109,15 +122,32 @@ const BarChart = ({ accountData }) => {
         }
     }
 
-    const data = {
-        labels,
-        datasets: [
+    const datasets = showTransactionsRatio
+        ? [
+            {
+                label: 'Исходящие',
+                data: outgoingByMonth,
+                backgroundColor: '#FD4E5D',
+                stack: 'combined'
+            },
+            {
+                label: 'Входящие',
+                data: incomingByMonth,
+                backgroundColor: '#76CA66',
+                stack: 'combined'
+            }
+        ]
+        : [
             {
                 label: 'Изменение баланса',
                 data: balanceChangesByMonth,
                 backgroundColor: '#116acc'
             }
         ]
+
+    const data = {
+        labels,
+        datasets
     }
 
     return <Bar options={options} data={data} />

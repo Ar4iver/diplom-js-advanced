@@ -11,7 +11,7 @@ const Header = () => {
 
     return (
         <header className={styles.header}>
-            <MyContainer>
+            <div className={styles.container}>
                 <div className={styles.headerContent}>
                     <AppLink>
                         <img src={Logo} alt="Logo" />
@@ -22,7 +22,7 @@ const Header = () => {
                         </div>
                         : null}
                 </div>
-            </MyContainer>
+            </div>
         </header>
     )
 }

@@ -6,6 +6,8 @@ import { AccountsContext } from 'entities/accounts'
 export const UserAccounts = () => {
     const { accounts, sortMethod } = useContext(AccountsContext)
 
+    console.log(accounts)
+
     let lastTransactionDateA, lastTransactionDateB
     const sortedAccounts = [...accounts].sort((a, b) => {
         switch (sortMethod) {
