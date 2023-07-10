@@ -19,8 +19,7 @@ Chart.register({
 
 const BarChart = ({ accountData, period, showTransactionsRatio, title }) => {
     const now = new Date()
-    console.log(accountData)
-    const accountNumber = accountData?.account
+    const accountNumber = accountData.account
 
     const labels = Array(period)
         .fill()

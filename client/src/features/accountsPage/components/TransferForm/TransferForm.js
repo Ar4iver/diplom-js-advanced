@@ -5,7 +5,7 @@ import CustomInput from 'shared/ui/Input/Input'
 import Mail from 'shared/assets/svg/mail.svg'
 import { transferFunds } from '../../../transferFunds'
 
-export const TransferForm = (props) => {
+export const TransferForm = React.forwardRef((props, ref) => {
     const { accountNumber } = props
 
     const [recipient, setRecipient] = useState('')
@@ -16,7 +16,7 @@ export const TransferForm = (props) => {
     }
 
     return (
-        <>
+        <div ref={ref}>
             <form
                 className={styles.form}
                 onSubmit={(e) => {
@@ -41,6 +41,7 @@ export const TransferForm = (props) => {
                     </div>
                 </div>
             </form>
-        </>
+        </div>
     )
-}
+})
+TransferForm.displayName = 'TransferForm'
