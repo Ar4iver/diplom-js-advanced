@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import styles from './AccountDetailPage.module.scss'
 import AppLink from 'shared/ui/AppLink/AppLink'
 import { fetchAccountDetails } from 'features/accounts/api/fetchAccountDetails'
@@ -9,26 +8,34 @@ import { TransferForm } from 'features/accountsPage/components/TransferForm/Tran
 import { BalanceChart } from 'features/accountsPage/components/BalanceChart/BalanceChart'
 import Arrow from 'shared/assets/svg/arrow.svg'
 import { TransactionHistory } from 'features/accountsPage/components/TransactionHistory/TransactionHistory'
+import { DraggableComponents } from 'features/DraggableComponents/DraggableComponents'
 
 export const AccountDetailPage = () => {
+    const [components, setComponents] = useState([])
     const { accountNumber } = useParams()
     const [accountDetails, setAccountDetails] = useState(null)
-    console.log(accountDetails)
 
     useEffect(() => {
         const getAccountDetails = async () => {
             const data = await fetchAccountDetails(accountNumber)
             setAccountDetails(data)
+
+            setComponents([
+                {
+                    id: '1',
+                    component: <TransferForm accountNumber={accountNumber} />
+                },
+                {
+                    id: '2',
+                    component: <BalanceChart accountData={data} period={6} showTransactionsRatio={false} title={'Динамика баланса'} />
+                }
+            ])
         }
         getAccountDetails()
     }, [accountNumber])
 
     if (!accountDetails) {
         return <div>Loading...</div>
-    }
-
-    const onDragEnd = (result) => {
-
     }
 
     return (
@@ -44,27 +51,7 @@ export const AccountDetailPage = () => {
                 </div>
             </div>
             <div className={styles.middle}>
-                <div className={styles.middle}>
-                    <DragDropContext onDragEnd={onDragEnd}>
-                        <Droppable droppableId='droppable' direction='horizontal' type='column'>
-                            {(provided) => (
-                                <div className={styles.middle}>
-                                    <Draggable draggableId='1' index={0}>
-                                        {(provided) => (
-                                            <div className={styles.transferForm} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}><TransferForm accountNumber={accountNumber} /></div>
-                                        )}
-                                    </Draggable>
-                                    <Draggable draggableId='2' index={1}>
-                                        {(provided) => (
-                                            <div className={styles.balanceChart} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}><BalanceChart accountData={accountDetails} period={6} showTransactionsRatio={false} title={'Динамика баланса'} /></div>
-                                        )}
-                                    </Draggable>
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>
-                    </DragDropContext>
-                </div>
+                <DraggableComponents components={components} setComponents={setComponents} />
             </div>
             <div className={styles.historyTransaction}><AppLink to={`/accounts/${accountNumber}/history-details`}><TransactionHistory accountNumber={accountNumber} transactions={accountDetails.transactions} /></AppLink></div>
         </div>
