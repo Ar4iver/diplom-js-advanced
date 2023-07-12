@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 
-export const DraggableComponents = (props) => {
-    const { components, setComponents } = props
+export const DraggableComponentsAccountDetails = (props) => {
+    const { components, setComponents, middleStyleProps } = props
+    const [show, setShow] = useState(false)
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShow(true)
+        }, 20)
+
+        return () => clearTimeout(timer)
+    }, [])
 
     const reorder = (list, startIndex, endIndex) => {
         const result = Array.from(list)
@@ -28,9 +37,9 @@ export const DraggableComponents = (props) => {
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId='droppable' direction='horizontal'>
+            {show && <Droppable droppableId='accountComponent' direction='horizontal' key={components.map(component => component.id).join(':')}>
                 {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                    <div style={middleStyleProps} ref={provided.innerRef} {...provided.droppableProps}>
                         {components.map((component, index) => (
                             <Draggable key={component.id} draggableId={component.id} index={index}>
                                 {(provided) => (
@@ -43,7 +52,7 @@ export const DraggableComponents = (props) => {
                         {provided.placeholder}
                     </div>
                 )}
-            </Droppable>
+            </Droppable>}
         </DragDropContext>
     )
 }

@@ -6,7 +6,7 @@ export const BalanceChart = (props) => {
     const { accountData, period, showTransactionsRatio, title } = props
 
     return (
-        <div>
+        <div className={styles.chartWrapper}>
             <BarChart accountData={accountData} period={period} showTransactionsRatio={showTransactionsRatio} title={title}/>
         </div>
     )

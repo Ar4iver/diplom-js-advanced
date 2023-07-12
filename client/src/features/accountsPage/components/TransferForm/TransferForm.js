@@ -16,30 +16,32 @@ export const TransferForm = (props) => {
     }
 
     return (
-        <form
-            className={styles.form}
-            onSubmit={(e) => {
-                e.preventDefault()
-                sendTransfer()
-            }}
-        >
-            <div className={styles.formBody}>
-                <h2 className={styles.headLoginForm}>Новый перевод</h2>
-                <CustomInput
-                    placeholder="Номер получателя"
-                    value={recipient}
-                    handleInputChange={(e) => setRecipient(e.target.value)}
-                />
-                <CustomInput
-                    placeholder="Сумма перевода"
-                    value={sum}
-                    handleInputChange={(e) => setSum(e.target.value)}
-                />
-                <div className={styles.wrapperButton}>
-                    <Button className={styles.buttonTranslation} type="submit"><span className={styles.svgMail}><img src={Mail} alt="Mail" /></span>Отправить</Button>
+        <div className={styles.wrapperContent}>
+            <form
+                className={styles.form}
+                onSubmit={(e) => {
+                    e.preventDefault()
+                    sendTransfer()
+                }}
+            >
+                <div className={styles.formBody}>
+                    <h2 className={styles.headLoginForm}>Новый перевод</h2>
+                    <CustomInput
+                        placeholder="Номер получателя"
+                        value={recipient}
+                        handleInputChange={(e) => setRecipient(e.target.value)}
+                    />
+                    <CustomInput
+                        placeholder="Сумма перевода"
+                        value={sum}
+                        handleInputChange={(e) => setSum(e.target.value)}
+                    />
+                    <div className={styles.wrapperButton}>
+                        <Button className={styles.buttonTranslation} type="submit"><span className={styles.svgMail}><img src={Mail} alt="Mail" /></span>Отправить</Button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     )
 }
 TransferForm.displayName = 'TransferForm'

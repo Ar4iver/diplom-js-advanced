@@ -8,7 +8,7 @@ import { TransferForm } from 'features/accountsPage/components/TransferForm/Tran
 import { BalanceChart } from 'features/accountsPage/components/BalanceChart/BalanceChart'
 import Arrow from 'shared/assets/svg/arrow.svg'
 import { TransactionHistory } from 'features/accountsPage/components/TransactionHistory/TransactionHistory'
-import { DraggableComponents } from 'features/DraggableComponents/DraggableComponents'
+import { DraggableComponentsAccountDetails } from 'features/DraggableComponents/DraggableComponents'
 
 export const AccountDetailPage = () => {
     const [components, setComponents] = useState([])
@@ -38,6 +38,12 @@ export const AccountDetailPage = () => {
         return <div>Loading...</div>
     }
 
+    const middleStyleProps = {
+        display: 'flex',
+        // justifyContent: 'space-between',
+        gap: '50px'
+    }
+
     return (
         <div className={styles.detailPageContainer}>
             <div className={styles.top}>
@@ -51,7 +57,7 @@ export const AccountDetailPage = () => {
                 </div>
             </div>
             <div className={styles.middle}>
-                <DraggableComponents components={components} setComponents={setComponents} />
+                <DraggableComponentsAccountDetails middleStyleProps={middleStyleProps} components={components} setComponents={setComponents} />
             </div>
             <div className={styles.historyTransaction}><AppLink to={`/accounts/${accountNumber}/history-details`}><TransactionHistory accountNumber={accountNumber} transactions={accountDetails.transactions} /></AppLink></div>
         </div>
