@@ -40,7 +40,6 @@ export const AccountDetailPage = () => {
 
     const middleStyleProps = {
         display: 'flex',
-        // justifyContent: 'space-between',
         gap: '50px'
     }
 
