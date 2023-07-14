@@ -1,7 +1,7 @@
-export const formatCurrency = (amount) => {
+export const formatCurrency = (amount, currency = 'RUB') => {
     const formatter = new Intl.NumberFormat('ru-RU', {
         style: 'currency',
-        currency: 'RUB',
+        currency,
         minimumFractionDigits: 0
     })
 

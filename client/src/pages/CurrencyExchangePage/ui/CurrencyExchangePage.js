@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../ui/CurrencyExchangePage.module.scss'
 import { getAllCurrencies } from 'entities/currencyExchange/lib/FetchAllCurrencies'
-import Currency from 'features/currencyExchangePage/сurrency/Currency'
+import { Currency } from 'features/currencyExchangePage/Сurrency'
+import { CurrencyExchangeForm } from 'features/currencyExchangePage/СurrencyExchangeForm'
 
 const CurrencyExchangePage = () => {
     const [currencies, setCurrencies] = useState([])
+
+    console.log(currencies)
 
     useEffect(() => {
         const getCurrens = async () => {
@@ -32,7 +35,7 @@ const CurrencyExchangePage = () => {
                         </div>
                     </div>
                     <div className={styles.currencyExchange}>
-
+                        <CurrencyExchangeForm />
                     </div>
                 </div>
                 <div className={styles.rightContent}>
