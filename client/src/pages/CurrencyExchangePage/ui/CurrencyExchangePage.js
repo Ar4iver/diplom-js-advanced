@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../ui/CurrencyExchangePage.module.scss'
-import { getAllCurrencies } from 'entities/currencyExchange/lib/FetchAllCurrencies'
 import { Currency } from 'features/currencyExchangePage/Сurrency'
 import { CurrencyExchangeForm } from 'features/currencyExchangePage/СurrencyExchangeForm'
+import { getCurrencies, getAllCurrencies } from 'entities/currencyExchange'
 
 const CurrencyExchangePage = () => {
     const [currencies, setCurrencies] = useState([])
-
-    console.log(currencies)
+    const [allCurrencies, setAllCorrencies] = useState()
 
     useEffect(() => {
-        const getCurrens = async () => {
-            const data = await getAllCurrencies()
-            setCurrencies(data)
+        const fetchCurrencies = async () => {
+            const [dataCurrencies, dataAllCurrencies] = await Promise.all([getCurrencies(), getAllCurrencies()])
+            setCurrencies(dataCurrencies)
+            setAllCorrencies(dataAllCurrencies)
         }
-        getCurrens()
+        fetchCurrencies()
     }, [])
 
-    if (!currencies.payload) {
+    if (!currencies?.payload || !allCurrencies?.payload) {
         return <div>Loading...</div>
     }
 
@@ -35,7 +35,7 @@ const CurrencyExchangePage = () => {
                         </div>
                     </div>
                     <div className={styles.currencyExchange}>
-                        <CurrencyExchangeForm />
+                        <CurrencyExchangeForm allCurrencies={allCurrencies.payload} />
                     </div>
                 </div>
                 <div className={styles.rightContent}>

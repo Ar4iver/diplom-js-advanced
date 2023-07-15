@@ -8,7 +8,7 @@ export const DraggableComponentsAccountDetails = (props) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShow(true)
-        }, 20)
+        }, 50)
 
         return () => clearTimeout(timer)
     }, [])

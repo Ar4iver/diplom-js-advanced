@@ -44,6 +44,7 @@ export const AccountDetailPage = () => {
     }
 
     return (
+        accountDetails &&
         <div className={styles.detailPageContainer}>
             <div className={styles.top}>
                 <div className={styles.topContentLeft}>
@@ -51,14 +52,20 @@ export const AccountDetailPage = () => {
                     <span className={styles.number}>№ {accountNumber}</span>
                 </div>
                 <div className={styles.topContentRight}>
-                    <AppLink to={'/accounts'} className={styles.link}><span className={styles.arrowSvg}><img src={Arrow} alt="Arrow" /></span>Вернуться назад</AppLink>
+                    <AppLink to={'/accounts'} className={styles.link}>
+                        <span className={styles.arrowSvg}><img src={Arrow} alt="Arrow" /></span>Вернуться назад
+                    </AppLink>
                     <span className={styles.accountBalance}>Баланс:<span className={styles.countBalance}> {formatCurrency(accountDetails.balance)}</span></span>
                 </div>
             </div>
             <div className={styles.middle}>
                 <DraggableComponentsAccountDetails middleStyleProps={middleStyleProps} components={components} setComponents={setComponents} />
             </div>
-            <div className={styles.historyTransaction}><AppLink to={`/accounts/${accountNumber}/history-details`}><TransactionHistory accountNumber={accountNumber} transactions={accountDetails.transactions} /></AppLink></div>
+            <div className={styles.historyTransaction}>
+                <AppLink to={`/accounts/${accountNumber}/history-details`}>
+                    <TransactionHistory accountNumber={accountNumber} transactions={accountDetails.transactions} />
+                </AppLink>
+            </div>
         </div>
     )
 }

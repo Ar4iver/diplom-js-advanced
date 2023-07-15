@@ -13,6 +13,11 @@ const AccountListPage = () => {
         { value: 'transaction', label: 'По последней транзакции' }
     ]
 
+    const customStyles = {
+        control: provided => ({ ...provided, width: 300 }),
+        menu: provided => ({ ...provided, width: 300 })
+    }
+
     const { fetchAccounts, sortMethod, setSortMethod } = useContext(AccountsContext)
 
     const handleCreateAccount = async () => {
@@ -33,7 +38,7 @@ const AccountListPage = () => {
             <div className={styles.headerContent}>
                 <div className={styles.leftContent}>
                     <h1>Ваши счета</h1>
-                    <MySelect options={options} value={sortMethod} onChange={handleSortChange} />
+                    <MySelect styles={customStyles} options={options} value={sortMethod} onChange={handleSortChange} />
                 </div>
                 <div className={styles.rightContent}>
                     <Button onClick={handleCreateAccount}>Создать новый счёт</Button>
