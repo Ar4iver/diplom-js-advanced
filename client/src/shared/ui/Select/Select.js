@@ -3,7 +3,7 @@ import Select from 'react-select'
 import { CustomOption } from './config/CustomOption'
 import { DropdownIndicator } from './config/DropdownIndicator'
 
-const MySelect = ({ options, value, onChange, styles }) => {
+const MySelect = ({ options, value, onChange, width }) => {
     const selectedOption = options.find(option => option.value === value)
 
     const handleChange = option => {
@@ -11,13 +11,14 @@ const MySelect = ({ options, value, onChange, styles }) => {
     }
 
     return (
-        <Select
-            options={options}
-            value={selectedOption}
-            onChange={handleChange}
-            components={{ Option: CustomOption, DropdownIndicator }}
-            styles={styles}
-        />
+        <div style={{ width: width || 'auto' }}>
+            <Select
+                options={options}
+                value={selectedOption}
+                onChange={handleChange}
+                components={{ Option: CustomOption, DropdownIndicator }}
+            />
+        </div>
     )
 }
 

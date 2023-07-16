@@ -15,6 +15,7 @@
     padding: 50px;
     border-radius: 50px;
     box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.25);
+    margin-bottom: 44px;
 }
 
 .blockHead {
@@ -22,4 +23,10 @@
     font-size: 20px;
     font-weight: 700;
     color: var(--secondary-5-color);
+}
+
+.currencyExchange {
+    padding: 50px;
+    box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
 }

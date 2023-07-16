@@ -1,8 +1,27 @@
 .wrapperSelect {
     display: flex;
+    margin-bottom: 25px
 }
 
 .select {
     display: flex;
     align-items: center;
+}
+
+.headForm {
+    margin-bottom: 25px;
+}
+
+.formbody {
+    display: flex;
+    gap: 25px;
+    height: 100%;
+}
+
+.rightContent {
+    display: flex;
+}
+
+.inputStyle {
+    width: 100%;
 }

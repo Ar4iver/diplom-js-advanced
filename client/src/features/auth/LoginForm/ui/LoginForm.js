@@ -35,6 +35,10 @@ const LoginForm = () => {
         }
     }
 
+    const styleInput = {
+        marginBottom: '25px'
+    }
+
     return (
         <>
             <form
@@ -47,11 +51,13 @@ const LoginForm = () => {
                 <div className={styles.formBody}>
                     <h2 className={styles.headLoginForm}>Вход в аккаунт</h2>
                     <CustomInput
+                        style={styleInput}
                         placeholder="Логин"
                         value={login}
                         handleInputChange={(e) => setLogin(e.target.value)}
                     />
                     <CustomInput
+                        style={styleInput}
                         placeholder="Пароль"
                         type="password"
                         value={password}
