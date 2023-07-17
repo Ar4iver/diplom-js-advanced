@@ -3,6 +3,7 @@ import styles from './CurrencyExchangeForm.module.scss'
 import MySelect from 'shared/ui/Select/Select'
 import CustomInput from 'shared/ui/Input/Input'
 import Button from 'shared/ui/Button/Button'
+import { getCurrencyBuy } from '../../../currencyBuy'
 
 export const CurrencyExchangeForm = (props) => {
     const { allCurrencies } = props
@@ -11,26 +12,23 @@ export const CurrencyExchangeForm = (props) => {
 
     const [selectOne, setSelectOne] = useState(options[0].value)
     const [selectTwo, setSelectTwo] = useState(options[1].value)
+    const [amount, setAmount] = useState(0)
 
     const handleOnChangeOne = (selectedOption) => {
-        setSelectOne(selectedOption.value)
-
-        const remainingOptions = options.filter(option => option.value !== selectedOption.value)
-        if (remainingOptions.length > 0) {
-            const randomOption = remainingOptions[Math.floor(Math.random() * remainingOptions.length)]
-            setSelectTwo(randomOption.value)
-        } else {
-            setSelectTwo(null)
-        }
+        setSelectOne(selectedOption)
     }
+
     const handleOnChangeTwo = (selectedOption) => {
-        setSelectTwo(selectedOption.value)
+        setSelectTwo(selectedOption)
     }
 
     const optionsForSelectTwo = options.filter(option => option.value !== selectOne)
 
     return (
-        <form>
+        <form onSubmit={(e) => {
+            e.preventDefault()
+            getCurrencyBuy(selectOne, selectTwo, amount)
+        }} >
             <h2 className={styles.headForm}>
                 Обмен валюты
             </h2>
@@ -55,12 +53,12 @@ export const CurrencyExchangeForm = (props) => {
                             Сумма
                         </span>
                         <div className={styles.inputStyle}>
-                            <CustomInput className={styles.inputStyle} />
+                            <CustomInput className={styles.inputStyle} value={amount} handleInputChange={(e) => setAmount(e.target.value)} />
                         </div>
                     </div>
                 </div>
                 <div className={styles.rightContent}>
-                    <Button>Обменять</Button>
+                    <Button type='submit'>Обменять</Button>
                 </div>
             </div>
         </form>

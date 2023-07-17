@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './signup.module.scss'
-import { LoginForm } from '../../../features/auth/LoginForm'
+import { LoginForm } from 'features/auth/LoginForm'
 
 const LoginPage = () => {
     return (

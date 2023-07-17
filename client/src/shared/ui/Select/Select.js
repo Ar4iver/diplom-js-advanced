@@ -7,6 +7,8 @@ const MySelect = ({ options, value, onChange, width }) => {
     const selectedOption = options.find(option => option.value === value)
 
     const handleChange = option => {
+        console.log(option.value)
+
         onChange(option.value)
     }
 
