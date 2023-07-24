@@ -5,6 +5,12 @@
     color: var(--secondary-5-color);
 }
 
+.wrapperContent {
+    display: flex;
+    gap: 50px;
+    justify-content: space-between;
+}
+
 .leftContent {
     display: flex;
     flex-direction: column;

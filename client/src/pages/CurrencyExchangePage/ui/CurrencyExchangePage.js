@@ -3,6 +3,7 @@ import styles from '../ui/CurrencyExchangePage.module.scss'
 import { Currency } from 'features/currencyExchangePage/Сurrency'
 import { CurrencyExchangeForm } from 'features/currencyExchangePage/СurrencyExchangeForm'
 import { getCurrencies, getAllCurrencies } from 'entities/currencyExchange'
+import CourseChangeTable from 'features/currencyExchangePage/СourseСhangeTable/ui/CourseChangeTable'
 
 const CurrencyExchangePage = () => {
     const [currencies, setCurrencies] = useState([])
@@ -39,7 +40,7 @@ const CurrencyExchangePage = () => {
                     </div>
                 </div>
                 <div className={styles.rightContent}>
-
+                    <CourseChangeTable />
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Currency.module.scss'
-import { formatCurrency } from '../../../../shared/utils/formatCurrency'
+import { formatCurrency } from 'shared/utils/formatCurrency'
 
 export const Currency = (props) => {
     const { currencies } = props
