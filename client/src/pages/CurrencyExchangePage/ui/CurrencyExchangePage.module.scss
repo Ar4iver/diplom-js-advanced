@@ -8,7 +8,6 @@
 .wrapperContent {
     display: flex;
     gap: 50px;
-    justify-content: space-between;
 }
 
 .leftContent {
@@ -16,6 +15,12 @@
     flex-direction: column;
     width: 50%;
 }
+
+.leftContent,
+.rightContent {
+    width: 100%;
+}
+
 
 .currencies {
     padding: 50px;

@@ -36,7 +36,7 @@ const CourseChangeTable = () => {
         }
     }, [])
 
-    const limitedArrayExchange = arrayExchange.slice(-12).reverse()
+    const limitedArrayExchange = arrayExchange.slice(-21).reverse()
 
     return (
         <div className={styles.container}>
