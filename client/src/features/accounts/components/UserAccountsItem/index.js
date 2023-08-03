@@ -1,3 +1,3 @@
-import { UserAccountsItem } from './ui/UserAccountsItem'
+import { UserAccountsItem, UserAccountsItemSkeleton } from './ui/UserAccountsItem'
 
-export { UserAccountsItem }
+export { UserAccountsItem, UserAccountsItemSkeleton }

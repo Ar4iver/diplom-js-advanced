@@ -15,6 +15,10 @@ export const TransferForm = (props) => {
         await transferFunds(accountNumber, recipient, sum)
     }
 
+    const styleInput = {
+        marginBottom: '25px'
+    }
+
     return (
         <div className={styles.wrapperContent}>
             <form
@@ -27,11 +31,13 @@ export const TransferForm = (props) => {
                 <div className={styles.formBody}>
                     <h2 className={styles.headLoginForm}>Новый перевод</h2>
                     <CustomInput
+                        style={styleInput}
                         placeholder="Номер получателя"
                         value={recipient}
                         handleInputChange={(e) => setRecipient(e.target.value)}
                     />
                     <CustomInput
+                        style={styleInput}
                         placeholder="Сумма перевода"
                         value={sum}
                         handleInputChange={(e) => setSum(e.target.value)}
