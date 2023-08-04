@@ -4,6 +4,8 @@ import MySelect from 'shared/ui/Select/Select'
 import { UserAccounts } from 'features/accounts/components/UserAccounts/ui/UserAccounts'
 import { createAccount } from 'features/createAccount'
 import { AccountsContext } from 'entities/accounts'
+import { Skeleton } from 'features/accounts/components/UserAccountsItem'
+import { toast } from '../../../shared/ui/Toast'
 import styles from './AccountListPage.module.scss'
 
 const AccountListPage = () => {
@@ -13,19 +15,36 @@ const AccountListPage = () => {
         { value: 'transaction', label: 'По последней транзакции' }
     ]
 
-    const { fetchAccounts, sortMethod, setSortMethod } = useContext(AccountsContext)
+    const { fetchAccounts, sortMethod, setSortMethod, isLoading } = useContext(AccountsContext)
 
     const handleCreateAccount = async () => {
         try {
             await createAccount()
             fetchAccounts()
+            toast.success('Счёт успешно создан!')
         } catch (error) {
             console.error(error)
+            toast.error('Произошла ошибка при создании счёта')
         }
     }
 
     const handleSortChange = (value) => {
+        let sortName
+        switch (value) {
+        case 'number':
+            sortName = 'номеру'
+            break
+        case 'balance':
+            sortName = 'балансу'
+            break
+        case 'transaction':
+            sortName = 'последней транзакции'
+            break
+        default:
+            break
+        }
         setSortMethod(value)
+        toast.success(`Сортировка по ${sortName} применена!`)
     }
 
     return (
@@ -40,7 +59,7 @@ const AccountListPage = () => {
                 </div>
             </div>
             <div className={styles.accountsList}>
-                <UserAccounts />
+                { isLoading ? Array.from({ length: 10 }, (_, index) => <Skeleton key={index} />) : <UserAccounts />}
             </div>
         </div>
     )

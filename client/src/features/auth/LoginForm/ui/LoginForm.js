@@ -5,6 +5,7 @@ import CustomInput from 'shared/ui/Input/Input'
 import { useNavigate } from 'react-router-dom'
 import { AccountsContext } from 'entities/accounts'
 import { AuthContext } from 'entities/auth'
+import { toast } from 'react-toastify'
 
 const LoginForm = () => {
     const [login, setLogin] = useState('')
@@ -30,7 +31,9 @@ const LoginForm = () => {
             await fetchAccounts()
 
             navigate('/accounts')
+            toast.success('Вход успешно выполнен!')
         } catch (error) {
+            toast.error('Во время авторизации произошла ошибка.')
             console.log(error)
         }
     }
@@ -50,6 +53,7 @@ const LoginForm = () => {
             >
                 <div className={styles.formBody}>
                     <h2 className={styles.headLoginForm}>Вход в аккаунт</h2>
+                    <span>Вводить ничего не нужно, просто кликните на кнопку: <strong>Войти</strong></span>
                     <CustomInput
                         style={styleInput}
                         placeholder="Логин"

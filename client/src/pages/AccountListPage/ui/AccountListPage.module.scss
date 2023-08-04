@@ -11,5 +11,9 @@
 }
 
 .accountsList {
+  gap: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   padding-top: 50px;
 }
