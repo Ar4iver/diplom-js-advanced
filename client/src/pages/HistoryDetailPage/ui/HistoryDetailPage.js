@@ -39,7 +39,7 @@ export const HistoryDetailPage = () => {
                 <div className={styles.balanceChart}><BalanceChartHistoryPage accountData={accountDetails} period={12} showTransactionsRatio={true} title={'Соотношение входящих исходящих транзакций'}/></div>
             </div>
             <div className={styles.historyTransaction}>
-                <TransactionHistory accountNumber={accountNumber} transactions={accountDetails.transactions} />
+                <TransactionHistory transactions={accountDetails.transactions} accountNumber={accountNumber} paginationEnabled={true} itemsPerPage={25} />
             </div>
         </div>
     )

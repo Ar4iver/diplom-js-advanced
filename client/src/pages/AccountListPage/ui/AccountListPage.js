@@ -5,7 +5,7 @@ import { UserAccounts } from 'features/accounts/components/UserAccounts/ui/UserA
 import { createAccount } from 'features/createAccount'
 import { AccountsContext } from 'entities/accounts'
 import { Skeleton } from 'features/accounts/components/UserAccountsItem'
-import { toast } from '../../../shared/ui/Toast'
+import { toast } from 'shared/ui/Toast'
 import styles from './AccountListPage.module.scss'
 
 const AccountListPage = () => {

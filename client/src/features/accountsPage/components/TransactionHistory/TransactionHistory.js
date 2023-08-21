@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './TransactionHistory.module.scss'
 import { formatCurrency } from 'shared/utils/formatCurrency'
+import Pagination from 'shared/ui/Pagination/Pagination'
 
 export const TransactionHistory = (props) => {
-    const { transactions, accountNumber } = props
+    const { transactions, accountNumber, paginationEnabled = false, itemsPerPage = 10 } = props
 
-    const lastTransactions = transactions.slice(-10).reverse()
+    const [currentPage, setCurrentPage] = useState(1)
+
+    let displayedTransactions = transactions
+    if (paginationEnabled) {
+        displayedTransactions = transactions.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+    } else {
+        displayedTransactions = transactions.slice(-itemsPerPage).reverse()
+    }
+
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage)
+    }
 
     return (
         <div className={styles.container}>
@@ -21,7 +33,7 @@ export const TransactionHistory = (props) => {
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
-                        {lastTransactions.map((item, index) => {
+                        {displayedTransactions.map((item, index) => {
                             const isOutTransaction = accountNumber === item.from
                             const transactionColor = isOutTransaction ? 'red' : 'green'
                             const transactionExp = isOutTransaction ? '-' : '+'
@@ -41,6 +53,15 @@ export const TransactionHistory = (props) => {
                     </tbody>
                 </table>
             </div>
+            {paginationEnabled && transactions.length > itemsPerPage && (
+                <div className={styles.paginationContainer}>
+                    <Pagination
+                        current={currentPage}
+                        total={Math.ceil(transactions.length / itemsPerPage)}
+                        onChange={handlePageChange}
+                    />
+                </div>
+            )}
         </div>
     )
 }

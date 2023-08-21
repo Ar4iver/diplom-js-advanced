@@ -1,4 +1,4 @@
-import { toast } from '../../../shared/ui/Toast/index.js'
+import { toast } from 'shared/ui/Toast/index.js'
 
 export const getCurrencyBuy = async (from, to, amount) => {
     try {
