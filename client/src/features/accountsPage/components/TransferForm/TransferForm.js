@@ -5,6 +5,7 @@ import styles from './SendForm.module.scss'
 import Button from 'shared/ui/Button/Button'
 import CustomInput from 'shared/ui/Input/Input'
 import Mail from 'shared/assets/svg/mail.svg'
+import { toast } from 'shared/ui/Toast'
 import { transferFunds } from '../../../transferFunds'
 
 export const TransferForm = (props) => {
@@ -12,12 +13,14 @@ export const TransferForm = (props) => {
     const [recipient, setRecipient] = useState('')
     const [sum, setSum] = useState('')
     const [cardType, setCardType] = useState('')
+    const [recipientError, setRecipientError] = useState(false)
+    const [sumError, setSumError] = useState(false)
 
     const sendTransfer = async () => {
         await transferFunds(accountNumber, recipient, sum)
     }
 
-    const determineCardType = (number) => {
+    const CardType = (number) => {
         if (number.startsWith('4')) {
             return <LiaCcVisa/>
         } else if (number.startsWith('5')) {
@@ -31,8 +34,51 @@ export const TransferForm = (props) => {
         setRecipient(value)
 
         if (isCardInput) {
-            setCardType(determineCardType(value))
+            setCardType(CardType(value))
         }
+    }
+
+    const validateFields = () => {
+        let isValid = true
+
+        if (!recipient) {
+            toast.error('Укажите номер получателя.')
+            setRecipientError(true)
+            isValid = false
+        } else {
+            setRecipientError(false)
+        }
+
+        if (!sum || parseFloat(sum) === 0) {
+            toast.error('Укажите корректную сумму перевода.')
+            setSumError(true)
+            isValid = false
+        } else {
+            setSumError(false)
+        }
+
+        return isValid
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        if (validateFields()) {
+            try {
+                await sendTransfer()
+                setRecipient('')
+                setSum('')
+            } catch (error) {
+                toast.error('Ошибка при отправке перевода')
+                console.error('Ошибка при отправке перевода:', error)
+            }
+        }
+    }
+
+    const errorStyle = {
+        marginBottom: '25px',
+        borderColor: 'red',
+        borderWidth: '2px',
+        outline: 'none'
     }
 
     const styleInput = {
@@ -43,16 +89,13 @@ export const TransferForm = (props) => {
         <div className={styles.wrapperContent}>
             <form
                 className={styles.form}
-                onSubmit={(e) => {
-                    e.preventDefault()
-                    sendTransfer()
-                }}
+                onSubmit={handleSubmit}
             >
                 <div className={styles.formBody}>
                     <h2 className={styles.headLoginForm}>Новый перевод</h2>
                     <div className={styles.numCardTypeInput}>
                         <CustomInput
-                            style={styleInput}
+                            style={recipientError ? errorStyle : styleInput}
                             placeholder="Номер получателя"
                             value={recipient}
                             isCardInput={true}
@@ -61,7 +104,7 @@ export const TransferForm = (props) => {
                         {cardType}
                     </div>
                     <CustomInput
-                        style={styleInput}
+                        style={sumError ? errorStyle : styleInput}
                         placeholder="Сумма перевода"
                         value={sum}
                         handleInputChange={(e) => setSum(e.target.value)}

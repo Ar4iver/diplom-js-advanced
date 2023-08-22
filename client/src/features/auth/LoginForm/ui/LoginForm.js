@@ -68,7 +68,7 @@ const LoginForm = () => {
                         handleInputChange={(e) => setPassword(e.target.value)}
                     />
                     <div className={styles.wrapperButton}>
-                        <Button type="submit">Войти</Button>
+                        <Button id="submit" type="submit">Войти</Button>
                     </div>
                 </div>
             </form>
