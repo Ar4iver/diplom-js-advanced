@@ -31,6 +31,7 @@ const LoginForm = () => {
             await fetchAccounts()
 
             navigate('/accounts')
+
             toast.success('Вход успешно выполнен!')
         } catch (error) {
             toast.error('Во время авторизации произошла ошибка.')

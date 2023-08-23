@@ -6,7 +6,7 @@ import { formatCurrency } from 'shared/utils/formatCurrency'
 
 export const UserAccountsItem = ({ account }) => {
     return (
-        <div className={styles.accountItem}>
+        <div id='accountItem' className={styles.accountItem}>
             <div className={styles.headerCard}>
                 <div className={styles.accountNumber}>{account.account}</div>
                 <div className={styles.balance}>{formatCurrency(account.balance)}</div>

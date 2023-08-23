@@ -55,7 +55,7 @@ const AccountListPage = () => {
                     <MySelect options={options} value={sortMethod} onChange={handleSortChange} width={'300px'} />
                 </div>
                 <div className={styles.rightContent}>
-                    <Button onClick={handleCreateAccount}>Создать новый счёт</Button>
+                    <Button id='addAccounts' onClick={handleCreateAccount}>Создать новый счёт</Button>
                 </div>
             </div>
             <div className={styles.accountsList}>

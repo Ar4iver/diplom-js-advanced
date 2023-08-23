@@ -1,48 +1,30 @@
-// describe('Transfer Form', () => {
-//     beforeEach(() => {
-//         // Предположим, ваше приложение запущено на http://localhost:3000
-//         cy.visit('http://localhost:8080/')
-//     })
-
-//     it('should display validation errors for empty fields and invalid sum', () => {
-//         cy.get('#submit').click()
-//         cy.wait(5000)
-//         // Нажимаем на кнопку отправки без заполнения полей
-//         cy.get('.buttonTranslation').click()
-
-//         // Проверяем, что toast сообщение содержит нужный текст
-//         cy.contains('Поля "Номер получателя" и "Сумма перевода" должны быть заполнены')
-
-//         // Заполняем только поле с номером получателя
-//         cy.get('input[placeholder="Номер получателя"]').type('1234567890')
-//         cy.get('.buttonTranslation').click()
-
-//         // Проверяем наличие ошибки только для поля с суммой перевода
-//         cy.contains('Поле "Сумма перевода" должно быть заполнено')
-
-//         // Заполняем поле с суммой перевода нулем
-//         cy.get('input[placeholder="Сумма перевода"]').type('0')
-//         cy.get('.buttonTranslation').click()
-
-//         // Проверяем наличие ошибки о том, что сумма не может быть равна 0
-//         cy.contains('Сумма перевода не может быть равна 0')
-//     })
-
-//     // Другие тест-кейсы, такие как успешная отправка формы, можно добавить здесь
-// })
-
-describe('Transfer Form', () => {
+describe('Test', () => {
     beforeEach(() => {
-        // Предположим, ваше приложение запущено на http://localhost:3000
         cy.visit('http://localhost:8080/')
+        cy.wait(2000)
         cy.get('#submit').click()
-        cy.intercept('POST', '/login').as('loginRequest')
     })
 
-    it('should display validation errors for empty fields and invalid sum', () => {
-        cy.get('#submit').click() // Замените селектор на правильный, если он отличается.
-        cy.wait('@loginRequest').its('response.body.payload').should('have.property', 'token');
+    it('Проверяем создаётся ли счёт', () => {
+        cy.get('#addAccounts').click({ force: true })
+        cy.contains('Счёт успешно создан!')
     })
 
-    // Другие тест-кейсы, такие как успешная отправка формы, можно добавить здесь
+    it('Проверка работы перехода на страницу счёта и работа формы переводов', () => {
+        cy.wait(2000)
+        cy.contains('74213041477477406320783754')
+            .closest('#accountItem')
+            .find('a')
+            .click()
+        cy.contains('Вход успешно выполнен!')
+
+        cy.get('input[placeholder="Номер получателя"]').type('1234567890')
+        cy.get('#buttonSubmit').click()
+        cy.contains('Укажите корректную сумму перевода.')
+
+        cy.get('input[placeholder="Номер получателя"]').type('88804713156056105141175054')
+        cy.get('input[placeholder="Сумма перевода"]').type('100000')
+        cy.get('#buttonSubmit').click()
+        cy.contains('Перевод валюты успешно выполнен!')
+    })
 })

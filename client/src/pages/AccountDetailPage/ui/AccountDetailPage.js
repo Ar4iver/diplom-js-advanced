@@ -23,7 +23,7 @@ export const AccountDetailPage = () => {
             setComponents([
                 {
                     id: '1',
-                    component: <TransferForm accountNumber={accountNumber} />
+                    component: <TransferForm accountNumber={accountNumber} onTransferSuccess={fetchAccountDetails} />
                 },
                 {
                     id: '2',
@@ -32,7 +32,7 @@ export const AccountDetailPage = () => {
             ])
         }
         getAccountDetails()
-    }, [accountNumber])
+    }, [accountNumber, accountDetails, fetchAccountDetails])
 
     if (!accountDetails) {
         return <div>Loading...</div>

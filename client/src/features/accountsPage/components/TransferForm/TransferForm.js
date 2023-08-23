@@ -9,7 +9,7 @@ import { toast } from 'shared/ui/Toast'
 import { transferFunds } from '../../../transferFunds'
 
 export const TransferForm = (props) => {
-    const { accountNumber } = props
+    const { accountNumber, onTransferSuccess } = props
     const [recipient, setRecipient] = useState('')
     const [sum, setSum] = useState('')
     const [cardType, setCardType] = useState('')
@@ -67,6 +67,7 @@ export const TransferForm = (props) => {
                 await sendTransfer()
                 setRecipient('')
                 setSum('')
+                onTransferSuccess(accountNumber)
             } catch (error) {
                 toast.error('Ошибка при отправке перевода')
                 console.error('Ошибка при отправке перевода:', error)
@@ -88,6 +89,7 @@ export const TransferForm = (props) => {
     return (
         <div className={styles.wrapperContent}>
             <form
+                id='form'
                 className={styles.form}
                 onSubmit={handleSubmit}
             >
@@ -110,7 +112,7 @@ export const TransferForm = (props) => {
                         handleInputChange={(e) => setSum(e.target.value)}
                     />
                     <div className={styles.wrapperButton}>
-                        <Button className={styles.buttonTranslation} type="submit"><span className={styles.svgMail}><img src={Mail} alt="Mail" /></span>Отправить</Button>
+                        <Button className={styles.buttonTranslation} id="buttonSubmit" type="submit"><span className={styles.svgMail}><img src={Mail} alt="Mail" /></span>Отправить</Button>
                     </div>
                 </div>
             </form>

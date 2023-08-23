@@ -3,6 +3,7 @@ import styles from './CurrencyExchangeForm.module.scss'
 import MySelect from 'shared/ui/Select/Select'
 import CustomInput from 'shared/ui/Input/Input'
 import Button from 'shared/ui/Button/Button'
+import { toast } from 'shared/ui/Toast'
 import { getCurrencyBuy } from '../../../currencyBuy'
 
 export const CurrencyExchangeForm = (props) => {
@@ -13,6 +14,7 @@ export const CurrencyExchangeForm = (props) => {
     const [selectOne, setSelectOne] = useState(options[0].value)
     const [selectTwo, setSelectTwo] = useState(options[1].value)
     const [amount, setAmount] = useState(0)
+    const [amountError, setAmountError] = useState(false)
 
     const handleOnChangeOne = (selectedOption) => {
         setSelectOne(selectedOption)
@@ -24,11 +26,39 @@ export const CurrencyExchangeForm = (props) => {
 
     const optionsForSelectTwo = options.filter(option => option.value !== selectOne)
 
+    const validateFields = () => {
+        let isValid = true
+        if (!amount || parseFloat(amount) === 0) {
+            toast.error('Укажите корректную сумму обмена.')
+            setAmountError(true)
+            isValid = false
+            setAmount('')
+        } else {
+            setAmountError(false)
+        }
+        return isValid
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        if (validateFields()) {
+            try {
+                await getCurrencyBuy(selectOne, selectTwo, amount)
+            } catch (error) {
+                toast.error('Во время обмена произошла ошибка')
+                console.error('Ошибка при обмене:', error)
+            }
+        }
+    }
+
+    const errorStyle = {
+        borderColor: 'red',
+        borderWidth: '2px',
+        outline: 'none'
+    }
+
     return (
-        <form onSubmit={(e) => {
-            e.preventDefault()
-            getCurrencyBuy(selectOne, selectTwo, amount)
-        }} >
+        <form onSubmit={handleSubmit}>
             <h2 className={styles.headForm}>
                 Обмен валюты
             </h2>
@@ -53,7 +83,7 @@ export const CurrencyExchangeForm = (props) => {
                             Сумма
                         </span>
                         <div className={styles.inputStyle}>
-                            <CustomInput className={styles.inputStyle} value={amount} handleInputChange={(e) => setAmount(e.target.value)} />
+                            <CustomInput className={styles.inputStyle} style={amountError ? errorStyle : null} value={amount} handleInputChange={(e) => setAmount(e.target.value)} />
                         </div>
                     </div>
                 </div>
